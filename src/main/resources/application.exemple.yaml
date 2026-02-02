@@ -1,0 +1,34 @@
+server:
+  port: PORT OF SERVICE
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: auth-service
+          uri: lb://AUTH-SERVICE
+          predicates:
+            - Path=/auth/**
+
+eureka:
+  client:
+    service-url:
+      defaultZone: URL EUREKA SERVER
+    fetch-registry: true
+    register-with-eureka: true
+  instance:
+    prefer-ip-address: false
+    hostname: localhost
+
+jwt:
+  secret: YOUR-SECRET-JWT
+
+logging:
+  level:
+    org.springframework.cloud.gateway: TRACE
+    org.springframework.cloud.loadbalancer: DEBUG
+    reactor.netty.http.client: DEBUG
+
+Loaded RouteDefinition: RouteDefinition{id='auth-service', ...}
